@@ -45,8 +45,8 @@
 		-->
 
 		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
-
+		In this assignment, we implemented path tracing algorithms that allow us to render more realistic pictures. After building the Ray Generation and Scene Intersection functions, as well as implementing a Bounding Volume Hierarchy to speed up our path tracer, we implemented various Direct and Global Illumination functions and incorporated Adaptive Sampling to improve our rendering time and quality. It was interesting working on the Global Illumination function and seeing the effects of each light bounce on the scene, especially after setting  isAccumBounces to false, we could clearly see the role each bounce of light played on the scene to better understand how the algorithm worked.
+		
 		<h2>Part 1: Ray Generation and Scene Intersection</h2>
 		For each pixel, we generated ns_aa rays by performing random uniform sampling and calling the generate_ray function, which required normalized image plane coordinates. Inside this function, we mapped a random sample from image plane coordinates to camera sensor coordinates, then transformed it into world coordinates. This transformation defined a direction vector for the ray. Using this ray, we traced its path through the scene using the Pathtracer::est_radiance_global_illumination function to compute the final radiance. The color of a pixel was determined by averaging the results of ns_aa sampled rays.
 
