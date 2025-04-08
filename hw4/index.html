@@ -48,7 +48,9 @@
 		-->
 
 		<h2>Overview</h2>
-		TO DO Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
+		In this assignment, we implemented a cloth simulation! First we built the wireframe for the cloth using a grid of point masses connected by springs, then implemented numerical integration to define the loading forces and compute the change in position of each point mass at each time step and added position adjustments to handle self-collisions and collisions with other objects to get our final cloth simulation. Next, we implemented a variety of shaders to render our cloth under various lighting and texture conditions, including Diffuse shading, Blinn-Phong shading, Texture mapping, Displacement and Bump Mapping, and Environment-mapped Reflections.
+		<br><br>
+		It was interesting implementing the cloth simulation and seeing the results improve as we added more functionality, for example with the self collisions, seeing the cloth incorrectly fall into itself when dropped vertically to seeing it fold and roll over itself after correctly handling these self collisions. It was also fun to see the behavior of the cloth change as we changed some of the physical parameters, such as the density of the cloth and spring constants between the point masses of the cloth grid. Adjusting these allowed us to simulate thin vs. thick cloths or flimsy vs. stiff cloths.
 
 		<h2>Part 1: Masses and springs</h2>
 		We began by using the mass and spring model to generate a wireframe for the cloth.
@@ -182,8 +184,8 @@
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="" width="400px"/> <!-- TODO -->
-				  <!-- <figcaption><b>Ks = 500</b>, More folds, fabric stretches more and hangs lower, takes the shape of the sphere</figcaption> -->
+				  <img src="Images\3.png" width="400px"/>
+				  <figcaption>Cloth texture mapped from an image of the campanile</figcaption>
 				</td>
 			  </tr>
 			</table>
@@ -247,21 +249,94 @@
 		As the density of the cloth increases, it falls on itself in smaller and more crumpled folds, maintaining the folds in its resting state as well. At a lower density, the cloth maintains its shape and only has 2-3 folds at rest while slowly unfolding to lie flat. In contrast, the cloth experiences similar behavior but instead as the spring constant Ks decreases. At a low Ks, the fabric folds on itself and maintains the small folds while at rest. At high Ks, the cloth only experiences large folds then at rest the top layer unfolds itself to lie flatter.
 
 		<h2>Part 5: Shaders</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		A shader program determines how objects in a 3D scene appear by computing lighting, shading, texture, and color. It typically consists of a vertex shader and a fragment shader working together. The vertex shader processes each vertex of a mesh, transforming its position and adjusting attributes like normals to prepare for lighting calculations. This defines the shape and orientation of the object in the scene. The fragment shader then operates on the resulting fragments (potential pixels), computing their final color based on lighting, texture, and material properties, bringing detail and realism to the rendered image.
 
-		<h2>(Optional) Part 6: Extra Credit - Additional cloth simulation features!</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		
-		<h2>Additional Notes (please remove)</h2>
-		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
-				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
-				</ul>
-			</li>
-		</ul>
+		<p>The Blinn-Phong shading model is a relatively simple way to shade an object in 3D. It is made up of ambient, diffuse, and specular components. Ambient light is the general background light caused by light rays bouncing off many surfaces in the environment. It helps fill in shadows. Diffuse light is created when a light ray hits a rough surface and branches out in equal distances from the hit point, contributing to a soft glow. Lastly, specular light is created by light rays hitting a reflective surface which reflects back in a more focused direction.</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Images\5.2_ambient_only.png" width="300px"/>
+				  <figcaption>Ambient Only</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Images\5.2_diffuse_only.png" width="300px"/>
+				  <figcaption>Diffuse Only</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Images\5.2_specular_only.png" width="300px"/>
+				  <figcaption>Specular Only</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Images\5.2_blinn_phong_all.png" width="300px"/>
+				  <figcaption>Entire Blinn-Phong Model</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+
+		<p>Here is the cloth on the sphere shaded with our custom texture map:</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Images\5.3_custom_texture.png" width="300px"/>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Images\5.3_extra.png" width="300px"/>
+				</td>
+			  </tr>
+			</table>
+		</div>
+
+		<p>Bump mapping creates the illusion of surface detail by modifying how light interacts with a flat surface using a texture, without altering the actual geometry. In contrast, displacement mapping physically modifies the mesh based on a height texture, resulting in more realistic and dynamic surface detail. Increasing the mesh's resolution allows the displacement to more accurately capture the nuances of the texture. This is similar to how increasing the number of samples improves the fidelity of a signal. This effect was especially noticeable in the bump mapping example.</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Images\5.4_bump_16.png" width="300px"/>
+				  <figcaption>Bump Map, <i>-o 16 -a 16</i></figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Images\5.4_bump_128.png" width="300px"/>
+				  <figcaption>Bump Map, <i>-o 128 -a 128</i></figcaption>
+				</td>
+			  </tr>
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Images\5.4_displacement_16.png" width="300px"/>
+				  <figcaption>Displacement Map, <i>-o 16 -a 16</i></figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Images\5.4_displacement_128.png" width="300px"/>
+				  <figcaption>Displacement Map, <i>-o 128 -a 128</i></figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+
+		<p>Here is the cloth on the sphere with our mirror shader:</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Images\5.5_mirror.png" width="300px"/>
+				</td>
+			  </tr>
+			</table>
+		</div>
+
+		<p>In our custom shader, we created an iridescent effect on a mirror-like surface, mimicking the colorful, angle-dependent sheen seen on CDs, bismuth crystals, or oil slicks. We started with the mirror shader and added a noise texture to alter the surface normal slightly, adding randomness. The iridescent color was determined based on the viewing angle by computing the dot product between the perturbed normal and the view direction. This value was used to index into a 2D iridescence lookup texture, which mapped different view angles to corresponding rainbow-like colors. Finally, we modulated the reflected environment color by this iridescent tint to create the final iridescent mirror effect.</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Images\5.6_extra_credit.png" width="300px"/>
+				</td>
+			  </tr>
+			</table>
+		</div>
+
 		</div>
 	</body>
 </html>
