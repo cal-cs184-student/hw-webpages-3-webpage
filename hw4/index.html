@@ -51,42 +51,200 @@
 		TO DO Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
 
 		<h2>Part 1: Masses and springs</h2>
-		Screenshots of scene/pinned2.json to see the cloth wireframe
+		We began by using the mass and spring model to generate a wireframe for the cloth.
+		<p>Here is <i>scene/pinned2.json</i> to see the cloth wireframe:</p>
 
-		<!-- <p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p> -->
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="hw4\Images\1_a.png" width="400px"/>
-				  <!-- <figcaption>Caption goes here.</figcaption> -->
+				  <img src="Images\1_a.png" width="400px"/>
 				</td>
 				<td style="text-align: center;">
-				  <img src="hw4\Images\1_aa.png" width="400px"/>
-				  <!-- <figcaption>Caption goes here.</figcaption> -->
+				  <img src="Images\1_aa.png" width="400px"/>
 				</td>
 			  </tr>
-			  <!-- <tr>
+			</table>
+		</div>
+
+		<br>
+
+		And the wireframe under different constraints:
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
 				<td style="text-align: center;">
-				  <img src="clothsim.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="Images\1_1.png" width="400px"/>
+				  <figcaption>(1) without any shearing constraints</figcaption>
 				</td>
 				<td style="text-align: center;">
-				  <img src="clothsim.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="Images\1_2.png" width="400px"/>
+				  <figcaption>(2) with only shearing constraints</figcaption>
 				</td>
-			  </tr> -->
+				<td style="text-align: center;">
+				  <img src="Images\1_3.png" width="400px"/>
+				  <figcaption>(3) with all constraints</figcaption>
+				</td>
+			  </tr>
 			</table>
 		</div>
 
 		<h2>Part 2: Simulation via numerical integration</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		We experiment with some of the parameters in the simulation and notice the following effects:
 
+		<p>At a very low ks, the cloth moves and ripples for a while before settling to its final resting position where the cloth droops and is longer, simulating a stretchy cloth At a high ks, the cloth settles to its final resting position faster, has less wrinkles, and retains its original shape more, simulating a stiffer cloth.</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Images\2_low_ks.png" width="400px"/>
+				  <figcaption><b>ks = 5 N/m</b>, Cloth is droopy with thin wrinkles at rest.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Images\2_high_ks.png" width="400px"/>
+				  <figcaption><b>ks = 50,000 N/m</b>, Cloth retains its shape with one thick wrinkle at rest.</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+
+		<p>At a very low density, the cloth moves with smaller and more compact ripples, simulating a thinner fabric. At high density, the cloth moves with fewer and larger ripples but has more wrinkles in its final resting position, simulating a thicker fabric.</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Images\2_low_den.png" width="400px"/>
+				  <figcaption><b>density = 1 g/cm^2</b>, While switching density from 5 g/cm^2 to 1 g/cm^2 after running simulation but before its final resting position, we see lots of small ripples across the cloth.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Images\2_high_den.png" width="400px"/>
+				  <figcaption><b>density = 50 g/cm^2</b>, We see many large ripples at its final resting position.</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+
+		<p>At very low damping, the cloth falls with lots of wrinkles and bounces and oscillates for a long time before reaching its final resting position. At high damping, the cloth falls with little to no wrinkles and reaches its resting position faster. The cloth’s appearance at its final resting position is the same.</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Images\2_low_damp.png" width="400px"/>
+				  <figcaption><b>damping = 0.1%</b>, While falling, we see lots of little ripples propagating.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Images\2_high_damp.png" width="400px"/>
+				  <figcaption><b>damping = 0.65%</b>, While falling, we see little to no wrinkles.</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+
+		<p>Finally, this is the shaded cloth in its final resting state.</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Images\2_zoomed_in.png" width="400px"/>
+				  <figcaption><i>scene/pinned4.json</i> using default parameters (density = 15 g/cm^2, ks = 5000 N/m, damping = 0.2%)</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+		
 		<h2>Part 3: Handling collisions with other objects</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		To handle collisions with spheres, we first determine if the point mass collides with the sphere by checking that the distance from the point mass to the sphere’s origin is less than or equal to the radius of the sphere itself. If so, we then compute the intersection point of the point mass on the sphere’s surface using the sphere radius * the unit vector from the origin to the point mass. Finally, we take the difference between this point and the point mass’ last position to redefine the point mass’ current position. 
+		<br><br>
+		For plane collisions, we determine that the point mass collided with the plane if its previous and current position are on opposite sides of the plane. We compute this mathematically by using the dot product to project a vector between the plane and the previous point mass location onto the plane’s normal vector, and similarly with the point mass’ current location onto the normal vector. If these resulting vectors have opposite signs (their product is <= 0) this means that the points lie on different sides of the plane or exactly on the plane. Then, we similarly compute the intersection point of the point mass with the plane by taking a dot product with the normal vector again to compute the straight line intersection, then use this location to find the difference and recompute the point mass’ new position.
 
+		<p>Here is the cloth in its final resting state on top of a sphere:</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Images\3_500.png" width="300px"/>
+				  <figcaption><b>Ks = 500</b>, More folds, fabric stretches more and hangs lower, takes the shape of the sphere</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Images\3_5000.png" width="300px"/>
+				  <figcaption><b>Ks = 5000</b>, Takes the shape of about ¼ of the sphere, fewer folds but still flowy in appearance</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Images\3_50000.png" width="300px"/>
+				  <figcaption><b>Ks = 50,000</b>, Cloth doesn’t take the shape of the sphere, appears much stiffer with thicker folds and holds its own shape</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+
+		<p>Here is the cloth lying peacefully at rest on top of a plane:</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="" width="400px"/> <!-- TODO -->
+				  <!-- <figcaption><b>Ks = 500</b>, More folds, fabric stretches more and hangs lower, takes the shape of the sphere</figcaption> -->
+				</td>
+			  </tr>
+			</table>
+		</div>
 		<h2>Part 4: Handling self-collisions</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		After mapping each point mass to a 3D box volume, we handle self collisions by checking the distance between a point mass and every other point mass in its box volume. If its distance is less than 2*thickness, then we add the difference between these distances to a correction vector to offset the given point mass away from test point. We sum these differences from all the test points in the box volume into this same correction vector then divide by the number of differences we found to get an average correction amount for the point mass’ position. We also divide by the number of simulation steps to scale down the correction to reduce potential of sudden position corrections, then finally add this correction vector to the point mass’ position to take care of self collisions.
+
+		<p>Here are three sequential screenshots of the cloth as it falls and folds on itself <i>(Ks = 5000 N/m, Density = 15 g/cm^2)</i>:</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Images\4_a1.png" width="300px"/>
+				  <figcaption>Initial self collisions</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Images\4_a2.png" width="300px"/>
+				  <figcaption>Cloth continues folding on itself</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Images\4_a3.png" width="300px"/>
+				  <figcaption>Rest state</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+
+		<p>We vary the density and spring constant, ks, of the cloth and notice the following results:</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Images\4_d05.png" width="300px"/>
+				  <figcaption><b>Density = 0.5 g/cm^2</b>, Ks = 5000 N/m</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Images\4_d5.png" width="300px"/>
+				  <figcaption><b>Density = 5 g/cm^2</b>, Ks = 5000 N/m</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Images\4_d50.png" width="300px"/>
+				  <figcaption><b>Density = 50 g/cm^2</b>, Ks = 5000 N/m</figcaption>
+				</td>
+			  </tr>
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="Images\4_k500.png" width="300px"/>
+				  <figcaption><b>Ks = 500 N/m</b>, Density = 15 g/cm^2</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Images\4_k5000.png" width="300px"/>
+				  <figcaption><b>Ks = 5000 N/m</b>, Density = 15 g/cm^2</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="Images\4_k50000.png" width="300px"/>
+				  <figcaption><b>Ks = 50,000 N/m</b>, Density = 15 g/cm^2</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+		As the density of the cloth increases, it falls on itself in smaller and more crumpled folds, maintaining the folds in its resting state as well. At a lower density, the cloth maintains its shape and only has 2-3 folds at rest while slowly unfolding to lie flat. In contrast, the cloth experiences similar behavior but instead as the spring constant Ks decreases. At a low Ks, the fabric folds on itself and maintains the small folds while at rest. At high Ks, the cloth only experiences large folds then at rest the top layer unfolds itself to lie flatter.
 
 		<h2>Part 5: Shaders</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
