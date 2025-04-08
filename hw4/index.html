@@ -326,6 +326,7 @@
 			</table>
 		</div>
 
+		<h2>Part 6: Extra Credit - Additional cloth simulation features!</h2>
 		<p>In our custom shader, we created an iridescent effect on a mirror-like surface, mimicking the colorful, angle-dependent sheen seen on CDs, bismuth crystals, or oil slicks. We started with the mirror shader and added a noise texture to alter the surface normal slightly, adding randomness. The iridescent color was determined based on the viewing angle by computing the dot product between the perturbed normal and the view direction. This value was used to index into a 2D iridescence lookup texture, which mapped different view angles to corresponding rainbow-like colors. Finally, we modulated the reflected environment color by this iridescent tint to create the final iridescent mirror effect.</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
